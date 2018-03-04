@@ -1,7 +1,7 @@
 package part1Scan;
 
-import part1Scan.Exception.InvalidSexpException;
-import part1Scan.Exception.LispException;
+import part1Scan.exception.InvalidSexpException;
+import part1Scan.exception.LispException;
 import part1Scan.enums.RunStateEnum;
 import part1Scan.utils.SexpUtil;
 
@@ -53,7 +53,7 @@ public class App {
                         System.out.println("> "+ SexpUtil.printSexp(root));
                     }
                     else if(runStateEnum.getStat()==RunStateEnum.RESET.getStat()){
-                        if(line.equals("$")){continue;}
+                        if(line.equals("$")){System.out.println("> warn: empty expression");continue;}
                         else {break;}
                     }
                     else{
@@ -61,7 +61,7 @@ public class App {
                     }
                 }
                 else{
-                    System.out.println("> error: unexpected $");
+                    System.out.println("> error: unexpected dollar");
                 }
                 reset();
             }

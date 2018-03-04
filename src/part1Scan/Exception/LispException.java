@@ -1,4 +1,4 @@
-package part1Scan.Exception;
+package part1Scan.exception;
 
 /**
  * Created by Administrator on 2018/3/3.
