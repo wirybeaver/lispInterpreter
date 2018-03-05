@@ -53,8 +53,11 @@ public class Parser {
                 tokenHandler.skipToken();
                 right = input();
                 String token3 = tokenHandler.ckNextToken();
-                if(token3==null || !token3.equals(")")){
+                if(token3==null){
                     throw new IncompletenessException("absence of right parenthesis for closing dot notation");
+                }
+                else if(!token3.equals(")")){
+                    throw new InvalidSexpException("redundant characters starting from "+token3+" for dot notation");
                 }
                 tokenHandler.skipToken();
             }
