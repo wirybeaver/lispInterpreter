@@ -1,5 +1,6 @@
 package part1Scan;
 
+import part1Scan.enums.SexpTypeEnum;
 import part1Scan.exception.IncompletenessException;
 import part1Scan.exception.InvalidSexpException;
 import part1Scan.exception.LispException;
@@ -18,7 +19,7 @@ public class Parser {
     public Parser(){
         symTable= new HashMap<String, Sexp>();
         for(PrimitiveEnum constant: PrimitiveEnum.values()){
-            symTable.put(constant.getName(), new Sexp(2, constant.getName()));
+            symTable.put(constant.getName(), new Sexp(SexpTypeEnum.SYMBOL.getType(), constant.getName()));
         }
     }
     public void reset(String input){
@@ -60,7 +61,7 @@ public class Parser {
             else{
                 right = input2();
             }
-            return new Sexp(3, left, right);
+            return new Sexp(SexpTypeEnum.NONATOM.getType(), left, right);
         }
         else if(token.equals(")")){
             throw new InvalidSexpException("unexpected right parenthesis");
@@ -70,15 +71,15 @@ public class Parser {
         }
         else if(isInteger(token)){
             //sexpression type is integer
-            Sexp result = new Sexp(1, Integer.parseInt(token));
+            Sexp result = new Sexp(SexpTypeEnum.NUMERIC.getType(), Integer.parseInt(token));
             tokenHandler.skipToken();
             return result;
         }
         else{
             //sexpression type is symbol
-            if(!validSymbol(token)){throw new InvalidSexpException("illegal symbol name");}
+            validSymbol(token);
             if(!symTable.containsKey(token)){
-                symTable.put(token, new Sexp(2, token));
+                symTable.put(token, new Sexp(SexpTypeEnum.SYMBOL.getType(), token));
             }
             tokenHandler.skipToken();
             return symTable.get(token);
@@ -117,17 +118,17 @@ public class Parser {
         return true;
     }
 
-    public boolean validSymbol(String x) {
+    public void validSymbol(String x) throws InvalidSexpException{
         char[] chars = x.toCharArray();
         if(Character.isDigit(chars[0])){
-            return false;
+            throw new InvalidSexpException("The symbol "+ x + " starts with a digit");
         }
         for(int i =0; i<chars.length; i++){
-            if(Character.isLetterOrDigit(chars[i])){
+            if(Character.isUpperCase(chars[i]) || Character.isDigit(chars[i])){
                 continue;
             }
-            return false;
+            throw new InvalidSexpException(x+" disobeys the atom form " +
+                    "-- uppercase letters and integers are only accepted");
         }
-        return true;
     }
 }

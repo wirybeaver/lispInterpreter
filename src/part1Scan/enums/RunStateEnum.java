@@ -6,7 +6,8 @@ package part1Scan.enums;
 public enum RunStateEnum {
     RESET(0, "reset"),
     SUCCEED(1, "succeed"),
-    WAIT(2, "more input needed")
+    WAIT(2, "more input needed"),
+    Error(3, "error")
     ;
     private int stat;
     private String msg;
