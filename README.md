@@ -56,7 +56,7 @@ Parser is the core content in project 1, it has two recursive function: input an
 
 		input[] = [ eq[ckNextToken[],4] --> getId[];
 			  | eq[ckNextToken[],1] --> [NoToken --> error!;
-										eq[ckNextToken[], 2] --> NIL;
+									    eq[ckNextToken[], 2] --> NIL;
 						     			eq[ckNextToken[], 3] --> cons[input[], input[]];
 						     			T --> cons[input[], input2[]];
 										];
@@ -113,6 +113,7 @@ A pure single $ is allowed, but the interpreter would not output anything.
 In order to let user see what happends after entering a single $$, I design a program that $$ is not actually exit characters but a preparation for exit, you have to hit any key to exit.
 
 **Incorrect Test Case**
+
 	a
 	> error: a disobeys the atom form -- uppercase letters and integers are only accepted
 	$
