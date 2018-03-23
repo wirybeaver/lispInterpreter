@@ -125,6 +125,9 @@ public class Evaluator {
             throw new EvaluationException("wrong argument type on QUOTEINT");
         }
         int type = SexpTypeEnum.NUMERIC.getType();
+		if(y.getValue() == 0){
+			throw new EvaluationException("divisor equals to zero");
+		}
         return new Sexp(type, x.getValue()/y.getValue());
     }
 
@@ -137,6 +140,9 @@ public class Evaluator {
             throw new EvaluationException("wrong argument type on REMAINDER");
         }
         int type = SexpTypeEnum.NUMERIC.getType();
+		if(y.getValue() == 0){
+			throw new EvaluationException("divisor equals to zero");
+		}
         return new Sexp(type, x.getValue()%y.getValue());
     }
 

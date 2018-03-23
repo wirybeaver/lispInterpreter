@@ -28,7 +28,9 @@ clean *.class files
 3. It is allowed to appending a single or $ or $$ to any empty expression.
 4. After input a single $$, please press any key to exit
 
-[Sample test cases](http://web.cse.ohio-state.edu/~soundarajan.1/courses/6341/l1input.txt)
+[Sample test cases for Part1](http://web.cse.ohio-state.edu/~soundarajan.1/courses/6341/l1input.txt)
+
+[Sample test cases for Part2](http://web.cse.ohio-state.edu/~soundarajan.1/courses/6341/testdata2.txt)
 
 **Sketch**
 
@@ -65,7 +67,7 @@ Parser is the core content in project 1, it has two recursive function: input an
 					eq[ckNextToken[],2] --> NIL;
 					| T --> cons[input[], input2[]]; ]
 
-**Correct Test Case**
+**Correct Test Case for Part 1**
 
 	()
 	$
@@ -111,7 +113,7 @@ A pure single $ is allowed, but the interpreter would not output anything.
 	> Press any key to exit
 In order to let user see what happends after entering a single $$, I design a program that $$ is not actually exit characters but a preparation for exit, you have to hit any key to exit.
 
-**Incorrect Test Case**
+**Incorrect Test Case for Part1**
 
 	a
 	> error: a disobeys the atom form -- uppercase letters and integers are only accepted
@@ -155,6 +157,24 @@ In order to let user see what happends after entering a single $$, I design a pr
 	$
 	> B1
 The last incorrect test case verify the 5th instrcution of the input manual: Don't forget to enter a single $ if you see an error message, otherwise the interpreter would ignore everything you input.
+
+**Incorrect Test Case for Part1**
+
+	(COND ((EQ 3 3) 1 1))
+	$
+	> Evaluation error: # param. unmatched
+
+	(COND ((PLUS 2 3) 1))
+	$
+	> Evaluation error: all bool expression are evaluating to be empty!!
+
+	(REMAINDER 3 0)
+	$
+	> Evaluation error: divisor equals to zero
+
+	(QUOTIENT 3 0)
+	$
+	> Evaluation error: divisor equals to zero
 
 
 
