@@ -5,6 +5,7 @@ import part1Scan.exception.IncompletenessException;
 import part1Scan.exception.InvalidSexpException;
 import part1Scan.exception.LispException;
 import part1Scan.enums.PrimitiveEnum;
+import part1Scan.utils.SymTableUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,17 +15,13 @@ import java.util.Map;
  */
 public class Parser {
     Map<String, Sexp> symTable;
-    TokenHandler tokenHandler;
-    Sexp root;
+    TokenHandler tokenHandler = null;
     public Parser(){
-        symTable= new HashMap<String, Sexp>();
-        for(PrimitiveEnum constant: PrimitiveEnum.values()){
-            symTable.put(constant.getName(), new Sexp(SexpTypeEnum.SYMBOL.getType(), constant.getName()));
-        }
+        symTable = SymTableUtil.getInstance();
     }
+
     public void reset(String input){
         tokenHandler = new TokenHandler(input);
-        root = null;
     }
 
     public Sexp startParsing() throws LispException {
@@ -34,6 +31,7 @@ public class Parser {
         }
         return ans;
     }
+
     public Sexp input() throws LispException{
         String token = tokenHandler.ckNextToken();
         if(token == null){throw new IncompletenessException("absence of right parenthesis");}
@@ -134,4 +132,9 @@ public class Parser {
                     "-- uppercase letters and integers are only accepted");
         }
     }
+
+    private Sexp getFromSymtable(String x){
+        return symTable.get(x);
+    }
+
 }

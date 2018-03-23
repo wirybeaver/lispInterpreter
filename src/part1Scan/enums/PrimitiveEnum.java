@@ -6,6 +6,17 @@ package part1Scan.enums;
 public enum PrimitiveEnum {
     NIL("NIL"),
     T("T"),
+    CAR("CAR"),
+    CDR("CDR"),
+    CONS("CONS"),
+    ATOM("ATOM"),
+    NULL("NULL"),
+    EQ("EQ"),
+    PLUS("PLUS"),
+    MINUS("MINUS"),
+    QUOTE("QUOTE"),
+    COND("COND"),
+    DEFUN("DEFUN")
     ;
     private String name;
     PrimitiveEnum(String name){
