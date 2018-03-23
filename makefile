@@ -11,21 +11,24 @@
 
 
 # set the entry of the java application
-ENTRY_POINT = part1Scan/App
+ENTRY_POINT = part2Eval/LispApp
 
 # set your source file name
 SOURCE_FILES = \
 part1Scan/exception/LispException.java \
 part1Scan/exception/InvalidSexpException.java \
 part1Scan/exception/IncompletenessException.java \
+part1Scan/exception/EvaluationException.java \
 part1Scan/enums/PrimitiveEnum.java \
 part1Scan/enums/RunStateEnum.java \
 part1Scan/enums/SexpTypeEnum.java \
 part1Scan/TokenHandler.java \
 part1Scan/Sexp.java \
 part1Scan/utils/SexpUtil.java \
+part1Scan/utils/SymTableUtil.java \
 part1Scan/Parser.java \
-part1Scan/App.java
+part2Eval/Evaluator.java \
+part2Eval/LispApp.java \
 
 
 # set file path related to the makefie location
