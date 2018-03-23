@@ -345,8 +345,9 @@ public class Evaluator {
 
     Sexp evcon(Sexp be, Sexp alist) throws EvaluationException {
         //
-        if(be==null || lispNULL(be)){throw new EvaluationException("boolean Exception is empty!!");}
+        if(be==null || lispNULL(be)){throw new EvaluationException("all bool expression are evaluating to be empty!!");}
         if(eq(eval(car(car(be)), alist), symTable.get("T"))){
+            checkParamNum(car(be), 2);
             return eval( car(cdr(car(be))), alist);
         }
         return evcon(cdr(be), alist);
