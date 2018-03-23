@@ -16,7 +16,7 @@ public enum PrimitiveEnum {
     PLUS("PLUS"),
     MINUS("MINUS"),
     TIMES("TIMES"),
-    QUOTIENT(" QUOTIENT"),
+    QUOTIENT("QUOTIENT"),
     REMAINDER("REMAINDER"),
     LESS("LESS"),
     GREATER("GREATER"),

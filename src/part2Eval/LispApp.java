@@ -28,7 +28,10 @@ public class LispApp {
                 continue;
             }
             else if(line.equals("$") || line.equals("$$")){
-                if(sb.length()==0){continue;}
+                if(sb.length()==0){
+                    if(line.equals("$")) {continue;}
+                    else{break;}
+                }
                 parser.reset(sb.toString());
                 try {
                     Sexp exp = parser.startParsing();

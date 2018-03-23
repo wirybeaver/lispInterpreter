@@ -104,6 +104,65 @@ public class Evaluator {
         return new Sexp(type, x.getValue()-y.getValue());
     }
 
+    Sexp times(Sexp x, Sexp y) throws EvaluationException {
+        if(x == null || y==null){
+            throw new EvaluationException("wrong argument type -- null pointer");
+        }
+        if(x.getType()!=SexpTypeEnum.NUMERIC.getType()
+                || y.getType()!=SexpTypeEnum.NUMERIC.getType()){
+            throw new EvaluationException("wrong argument type on TIMES");
+        }
+        int type = SexpTypeEnum.NUMERIC.getType();
+        return new Sexp(type, x.getValue()*y.getValue());
+    }
+
+    Sexp quotient(Sexp x, Sexp y) throws EvaluationException {
+        if(x == null || y==null){
+            throw new EvaluationException("wrong argument type -- null pointer");
+        }
+        if(x.getType()!=SexpTypeEnum.NUMERIC.getType()
+                || y.getType()!=SexpTypeEnum.NUMERIC.getType()){
+            throw new EvaluationException("wrong argument type on QUOTEINT");
+        }
+        int type = SexpTypeEnum.NUMERIC.getType();
+        return new Sexp(type, x.getValue()/y.getValue());
+    }
+
+    Sexp remainder(Sexp x, Sexp y) throws EvaluationException {
+        if(x == null || y==null){
+            throw new EvaluationException("wrong argument type -- null pointer");
+        }
+        if(x.getType()!=SexpTypeEnum.NUMERIC.getType()
+                || y.getType()!=SexpTypeEnum.NUMERIC.getType()){
+            throw new EvaluationException("wrong argument type on REMAINDER");
+        }
+        int type = SexpTypeEnum.NUMERIC.getType();
+        return new Sexp(type, x.getValue()%y.getValue());
+    }
+
+    Sexp less(Sexp x, Sexp y) throws EvaluationException {
+        if(x == null || y==null){
+            throw new EvaluationException("wrong argument type -- null pointer");
+        }
+        if(x.getType()!=SexpTypeEnum.NUMERIC.getType()
+                || y.getType()!=SexpTypeEnum.NUMERIC.getType()){
+            throw new EvaluationException("wrong argument type on LESS");
+        }
+        return (x.getValue()<y.getValue())? symTable.get("T"): symTable.get("NIL");
+    }
+
+    Sexp greater(Sexp x, Sexp y) throws EvaluationException {
+        if(x == null || y==null){
+            throw new EvaluationException("wrong argument type -- null pointer");
+        }
+        if(x.getType()!=SexpTypeEnum.NUMERIC.getType()
+                || y.getType()!=SexpTypeEnum.NUMERIC.getType()){
+            throw new EvaluationException("wrong argument type on GREATER");
+        }
+        return (x.getValue()>y.getValue())? symTable.get("T"): symTable.get("NIL");
+    }
+
+
     Sexp defun(Sexp x) throws EvaluationException {
         if(x==null){throw new EvaluationException("wrong argument type --  null pointer");}
         // x= (DEFUN SILLY (A B) (PLUS A B))
@@ -214,6 +273,10 @@ public class Evaluator {
                 checkParamNum(x, 1);
                 return lispNULL(car(x))? symTable.get("T"): symTable.get("NIL");
             }
+            else if(eq(f, symTable.get("INT"))){
+                checkParamNum(x, 1);
+                return lispInt(car(x))? symTable.get("T"): symTable.get("NIL");
+            }
             else if(eq(f, symTable.get("EQ"))){
                 checkParamNum(x, 2);
                 return eq(car(x), car(cdr(x)))? symTable.get("T"): symTable.get("NIL");
@@ -225,6 +288,26 @@ public class Evaluator {
             else if(eq(f, symTable.get("MINUS"))){
                 checkParamNum(x, 2);
                 return minus(car(x), car(cdr(x)));
+            }
+            else if(eq(f, symTable.get("TIMES"))){
+                checkParamNum(x, 2);
+                return times(car(x), car(cdr(x)));
+            }
+            else if(eq(f, symTable.get("QUOTIENT"))){
+                checkParamNum(x, 2);
+                return quotient(car(x), car(cdr(x)));
+            }
+            else if(eq(f, symTable.get("REMAINDER"))){
+                checkParamNum(x, 2);
+                return remainder(car(x), car(cdr(x)));
+            }
+            else if(eq(f, symTable.get("LESS"))){
+                checkParamNum(x, 2);
+                return less(car(x), car(cdr(x)));
+            }
+            else if(eq(f, symTable.get("GREATER"))){
+                checkParamNum(x, 2);
+                return greater(car(x), car(cdr(x)));
             }
             else {
                 Sexp fParamAndfBody = getVal(f, this.dlist);
